@@ -11,7 +11,7 @@ using book_collection.Data;
 namespace book_collection.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20240209090108_InitialCreate")]
+    [Migration("20240214131307_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
