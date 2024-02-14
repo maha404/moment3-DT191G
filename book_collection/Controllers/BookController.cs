@@ -19,7 +19,7 @@ namespace book_collection.Controllers
             _context = context;
         }
 
-        // GET: Book
+        //GET: Book
         // public async Task<IActionResult> Index()
         // {
         //     var bookContext = _context.Books.Include(b => b.Category);
@@ -27,20 +27,21 @@ namespace book_collection.Controllers
         // }
 
         // GET: Book search
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string SearchString)
         {
             if(_context.Books == null)
             {
                 return Problem("BookContext.Book is null");
             }
             
-            // LINQ query
+            // LINQ query - Hämtar både böcker och kategori
             var books = from m in _context.Books.Include(b => b.Category)
                         select m;
             
-            if(!String.IsNullOrEmpty(searchString))
+            if(!String.IsNullOrEmpty(SearchString))
             {
-                books = books.Where(s => s.Title!.Contains(searchString));
+                SearchString = SearchString.Trim().ToLower();
+                books = books.Where(s => s.Title!.ToLower().Contains(SearchString));
             }
 
             return View(await books.ToListAsync());
